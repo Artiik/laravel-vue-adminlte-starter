@@ -23,4 +23,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web'], 'namespace' => 'Admi
     Route::get('logout', 'Auth\LoginController@logout');
 
     Route::name('home')->get('/dashboard', 'AdminController@index');
+
+    Route::name('get-lang')->post('/get-lang', 'LanguageController@get');
+    Route::name('change-lang')->post('/change-lang', 'LanguageController@change');
+
+    /*
+     * Catch all route
+     */
+    Route::name('catch-all')->get('/{path}', function () {
+        throw new AdminPageNotFoundException();
+    });
 });
