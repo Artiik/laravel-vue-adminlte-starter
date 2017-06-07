@@ -18,6 +18,8 @@ require('bootstrap-sass');
  */
 
 window.Vue = require('vue');
+window.store = require('./store');
+require('./helpers');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -28,7 +30,8 @@ window.Vue = require('vue');
 window.axios = require('axios');
 
 window.axios.defaults.headers.common = {
-    'X-Requested-With': 'XMLHttpRequest'
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 };
 
 /**

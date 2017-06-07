@@ -15,15 +15,14 @@
             </div>
             <!-- sidebar menu: -->
             <ul class="sidebar-menu">
-                <li class="header">Administration</li>
+                <li class="header">{{ trans("admin.dashboard.Administration") }}</li>
                 <!-- ================================================ -->
                 <!-- ==== Recommended place for admin menu items ==== -->
                 <!-- ================================================ -->
-                <li v-for="menuItem in menuItems.administration"><a :href="menuItem.link"><i :class="menuItem.iconClass"></i> <span>{{ menuItem.label }}</span></a></li>
-
+                <li :class="{ active: menuItem.active }" v-for="menuItem in menuItems.administration"><a :href="menuItem.link"><i :class="menuItem.iconClass"></i> <span>{{ menuItem.label }}</span></a></li>
 
                 <!-- ======================================= -->
-                <li class="header">User</li>
+                <li class="header">{{ trans("admin.dashboard.User") }}</li>
                 <li v-for="menuItem in menuItems.user"><a :href="menuItem.link"><i :class="menuItem.iconClass"></i> <span>{{ menuItem.label }}</span></a></li>
             </ul>
         </section>
@@ -32,20 +31,47 @@
 </template>
 
 <script>
+    //import { mapGetters } from 'vuex';
+    //const mapGetters = require('vuex').mapGetters;
+
     export default {
 
-        props: ['user'],
+        //props: ['user'],
+        computed: {
+//            ...mapGetters(['user'])
+            user() {
+                return this.$store.getters.user;
+            },
+            menuUrls() {
+                return this.$store.state.linkUrls.main_sidebar_urls;
+            },
+            currentUrl() {
+                return this.$store.state.linkUrls.current_url;
+            },
+            menuItems() {
+                return {
+                    administration: [
+                        {
+                            label: this.trans("admin.dashboard.Dashboard"),
+                            link: this.menuUrls.admin.dashboard,
+                            iconClass: 'fa fa-dashboard',
+                            active: this.currentUrl == this.menuUrls.admin.dashboard
+                        },
+                    ],
+                    user: [
+                        {
+                            label: this.trans("admin.dashboard.Logout"),
+                            link: this.menuUrls.user.logout,
+                            iconClass: 'fa fa-sign-out',
+                            active: this.currentUrl == this.menuUrls.user.logout
+                        }
+                    ]
+                };
+            }
+        },
 
         data() {
             return {
-                menuItems: {
-                    administration: [
-                        { label: 'Dashboard', link: '', iconClass: 'fa fa-dashboard' }
-                    ],
-                    user: [
-                        { label: 'Logout', link: '/admin/logout', iconClass: 'fa fa-sign-out' }
-                    ]
-                }
             };
         },
 
@@ -56,5 +82,7 @@
 </script>
 
 <style>
-
+    .main-sidebar {
+        padding-top: 74px;
+    }
 </style>

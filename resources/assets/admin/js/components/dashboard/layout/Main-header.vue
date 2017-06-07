@@ -34,8 +34,12 @@
 
                     <!-- <li><a href="{{ url('/') }}"><i class="fa fa-home"></i> <span>Home</span></a></li> -->
 
-                    <li v-if="userLoggedIn"><a href="/admin/logout"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
-                    <li v-else><a href="/admin/login">Login</a></li>
+                    <li>
+                        <lang-chooser></lang-chooser>
+                    </li>
+
+                    <li v-if="userLoggedIn"><a href="/admin/logout"><i class="fa fa-btn fa-sign-out"></i> {{ trans("admin.dashboard.Logout") }}</a></li>
+                    <li v-else><a href="/admin/login">{{ trans("admin.dashboard.Login") }}</a></li>
 
                     <!-- ========== End of top menu right items ========== -->
                 </ul>
@@ -46,7 +50,16 @@
 
 <script>
     export default {
-        props: ['logoUrl', 'userLoggedIn'],
+        props: [],
+
+        computed: {
+            userLoggedIn() {
+                return this.$store.state.userLoggedIn;
+            },
+            logoUrl() {
+                return this.$store.state.linkUrls.logo_url;
+            },
+        },
 
         mounted() {
             console.log('Component Main-header mounted.')
@@ -54,6 +67,23 @@
     }
 </script>
 
-<style>
+<style type="scss">
+    .main-header .sidebar-toggle {
+        padding: 1.9em;
+    }
 
+    .main-header .logo {
+        height: 74px;
+    }
+
+    .logo span {
+        height: 100%;
+        line-height: 74px;
+    }
+
+    .main-header .nav li a {
+        width: 100%;
+        height: 100%;
+        padding: 1.9em;
+    }
 </style>

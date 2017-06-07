@@ -1,9 +1,10 @@
 <template>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+        <slot name="header"></slot>
         <!-- Main content -->
         <section class="content">
-            <slot></slot>
+            <slot name="content"></slot>
         </section>
         <!-- /.content -->
     </div>

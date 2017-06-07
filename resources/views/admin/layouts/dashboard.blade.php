@@ -41,15 +41,29 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- Scripts -->
+    <script>
+        window.Laravel = {!! json_encode($Laravel) !!};
+    </script>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
     <div class="wrapper" id="dashboard">
-        <Dashboard @if (Auth::check()) :user-logged-in="true" :user="{{ Auth::user() }}" @endif
-                   logo-url="{{ url('admin/dashboard') }}">
-            @yield('content')
+
+        <Dashboard>
+            <div slot="header">@yield('header')</div>
+            <div slot="content">@yield('content')</div>
         </Dashboard>
+
     </div>
+
+    {{--<div class="wrapper" id="dashboard">--}}
+        {{--<Dashboard @if (Auth::check()) :user-logged-in="true" :user="{{ Auth::user() }}" @endif--}}
+                   {{--logo-url="{{ url('admin/dashboard') }}">--}}
+            {{--@yield('content')--}}
+        {{--</Dashboard>--}}
+    {{--</div>--}}
 
 
     @stack('before_scripts')
@@ -58,6 +72,17 @@
     <!-- jQuery 2.2.3 -->
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script>window.jQuery || document.write('<script src="{{ asset('vendor/AdminLTE') }}/plugins/jQuery/jQuery-2.2.3.min.js"><\/script>')</script>
+
+    <!-- page script -->
+    <script type="text/javascript">
+        // Ajax calls should always have the CSRF token attached to them, otherwise they won't work
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+
     <!-- Bootstrap 3.3.6 -->
     <script src="{{ asset('vendor/AdminLTE') }}/bootstrap/js/bootstrap.min.js"></script>
     <script src="{{ asset('vendor/AdminLTE') }}/plugins/slimScroll/jquery.slimscroll.min.js"></script>

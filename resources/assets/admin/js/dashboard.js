@@ -13,12 +13,13 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-//Vue.component('example', require('./components/Example.vue'));
-Vue.component('Dashboard', require('./components/dashboard/layout/Dashboard.vue'));
-Vue.component('main-header', require('./components/dashboard/layout/Main-header.vue'));
-Vue.component('main-sidebar', require('./components/dashboard/layout/Main-sidebar.vue'));
-Vue.component('content-wrapper', require('./components/dashboard/layout/Content-wrapper.vue'));
+require('./components-register');
+
+console.log('Laravel', Laravel);
+
+window.bus = new Vue();
 
 const dashboard = new Vue({
     el: '#dashboard',
+    store
 });

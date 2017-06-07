@@ -12,7 +12,7 @@
 |
 */
 
-//Auth::routes();
+use App\Exceptions\AdminPageNotFoundException;
 
 Route::group(['prefix' => 'admin', 'middleware' => ['web'], 'namespace' => 'Admin'], function () {
     Route::get('/', 'AdminController@redirect');
